@@ -22,6 +22,8 @@ func getVersion(file *os.File) int {
 }
 
 func convertFile(inFile *os.File, out io.Writer) error {
+	inFile.Seek(0, os.SEEK_SET)
+
 	h0 := new(Ver0Header)
 	if err := binary.Read(inFile, byteOrder, h0); err != nil {
 		return err
@@ -75,7 +77,7 @@ func convertFile(inFile *os.File, out io.Writer) error {
 	}
 
 	inFile.Seek(int64(ver0HEaderSize), os.SEEK_SET)
-	binary.Write(os.Stdout, byteOrder, h3)
+	binary.Write(out, byteOrder, h3)
 	io.Copy(out, inFile)
 
 	return nil

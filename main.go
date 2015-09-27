@@ -13,7 +13,7 @@ import (
 func main() {
 	app := cli.App("ng-cache-conv", "nginx cache files converter")
 
-	app.Command("file", "Convert single file and pass result to stdout", func(cmd *cli.Cmd) {
+	app.Command("update-file", "Update single file and pass result to stdout", func(cmd *cli.Cmd) {
 		fileName := cmd.StringArg("FILE", "", "old version cache file")
 		cmd.Action = func() {
 			f, err := os.Open(*fileName)
@@ -110,7 +110,7 @@ func main() {
 		}
 	})
 
-	app.Command("convert", "Convert all files in cache dir to lates version", func(cmd *cli.Cmd) {
+	app.Command("update", "Update all files in cache dir to lates version", func(cmd *cli.Cmd) {
 		dirName := cmd.StringArg("DIR", "", "directory name")
 		cmd.Action = func() {
 			t0 := time.Now()
